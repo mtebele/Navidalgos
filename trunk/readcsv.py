@@ -3,6 +3,7 @@
 import csv
 from juguete import Juguete
 from ciudad import Ciudad
+from esquina import Esquina
 
 def main():
 	with open('juguetes.csv', 'rb') as archivo_j:
