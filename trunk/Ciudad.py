@@ -28,6 +28,6 @@ class Ciudad:
 		self.cant_esquinas += 1
 
 	def agregar_calle(self, esquina1, esquina2):
-		dist  =  esquina1.calcular_distancia(esquina2)
+		dist = esquina1.calcular_distancia(esquina2)
 		self.mapa.agregar_arista(esquina1, esquina2, dist)
 		self.cant_calles += 1
