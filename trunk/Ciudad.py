@@ -8,7 +8,7 @@ class Esquina:
 		self.y = y1
 		self.longitud = lon
 		self.latitud = lat
-
+		
 	def calcular_distancia(self, esquina2):
 		dist_x = esquina2.x - self.x
 		dist_y = esquina2.y - self.y	
