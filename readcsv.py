@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 
 import csv
-from juguete import Juguete
-from ciudad import Ciudad
+import juguete
+import ciudad
+import fabrica
 
 def main():
-	with open('fabricas.csv', 'rb') as archivo_j:
+	print(">> ARRANCA")
+	with open('fabricas.csv', 'rb') as archivo_f:
 		archivo_csv = csv.reader(archivo_f)
 		lista_fabricas = []		
 		for idf, ide, hora_entrada, hora_salida in archivo_csv:
-			fab = Fabrica(idf, ide, hora_entrada, hora_salida)
+			fab = fabrica.Fabrica(idf, ide, hora_entrada, hora_salida)
 			lista_fabricas.append(fab)
 	archivo_f.close()
 	
@@ -17,29 +19,30 @@ def main():
 		archivo_csv = csv.reader(archivo_j)
 		lista_juguetes = []		
 		for idf, idj, valor, peso in archivo_csv:
-			jug = Juguete(idf, idj, int(valor), int(peso))
+			jug = juguete.Juguete(idf, idj, int(valor), int(peso))
 			lista_juguetes.append(jug)
 	archivo_j.close()
 
-	with open('mapa.csv', 'rb') as archivo_c:
+	with open('mapa.csv', 'rU') as archivo_c:
 		archivo_csv = csv.reader(archivo_c)
-		ciudad = Ciudad()
-		cant_esquinas = int(archivo_csv.next())
+		city = ciudad.Ciudad()
+		cant_esquinas = int(archivo_csv.next()[0])
 		for i in range(cant_esquinas):
 			lista = archivo_csv.next()
 			ide = lista[0]
 			x = float(lista[1])
 			y = float(lista[2])
-			latitud = int(lista[3])
-			longitud = int(lista[4])
-			ciudad.agregar_esquina(ide, x, y, latitud, longitud)
-		cant_calles = int(archivo_csv.next())
+			latitud = float(lista[3])
+			longitud = float(lista[4])
+			city.agregar_esquina(ide, x, y, latitud, longitud)
+		cant_calles = int(archivo_csv.next()[0])
 		for j in range(cant_calles):
 			lista = archivo_csv.next()
 			idc = lista[0]
 			esq_inicio = lista[1]
 			esq_fin = lista[2]
-			ciudad.agregar_calle(esq_inicio, esq_fin, idc)
-	archivo_c.close()	
+			city.agregar_calle(idc, esq_inicio, esq_fin)
+	archivo_c.close()
+	print(">> TERMINA")
 			
 main()
