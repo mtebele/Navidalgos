@@ -4,7 +4,7 @@ import numpy as np
 
 class Ciudad:
 	def __init__(self):
-		self.mapa = Grafo()
+		self.mapa = grafo.Grafo()
 		self.coord_angulares = {}
 		self.coord_metros = {}
 
@@ -20,5 +20,5 @@ class Ciudad:
 		self.coord_angulares[esquina] = np.array([lat,lon])
 
 	def agregar_calle(self, idc, esquina1, esquina2):
-		dist  =  calcular_distancia(esquina1, esquina2)
+		dist = self.calcular_distancia(esquina1, esquina2)
 		self.mapa.agregar_arista(esquina1, esquina2, dist, idc)

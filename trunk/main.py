@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import readcsv
 
 def validar_instruccion(instruccion):
 	"""Valido si la instruccion tiene formato correcto"""
@@ -18,6 +19,7 @@ def validar_instruccion(instruccion):
 		return False
 
 def main():
+	readcsv
 	while True:
 		linea = sys.stdin.readline()
 		if not linea:
