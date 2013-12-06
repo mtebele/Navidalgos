@@ -1,7 +1,8 @@
+#!/usr/bin/env python
+
 import csv
 from juguete import Juguete
 from ciudad import Ciudad
-from ciudad import Esquina
 
 def main():
 	with open('juguetes.csv', 'rb') as archivo_j:
@@ -12,11 +13,25 @@ def main():
 			lista_juguetes.append(jug)
 	archivo_j.close()
 
-	with open('fabricas.csv', 'rb') as archivo_f:
-		archivo_csv = csv.reader(archivo_f)
+	with open('mapa.csv', 'rb') as archivo_c:
+		archivo_csv = csv.reader(archivo_c)
 		ciudad = Ciudad()
-		for ide, x, y, latitud, longitud in archivo_csv:
-			esquina = Esquina(ide, int(x), int(y), float(latitud), float(longitud))
-			ciudad.agregar_esquina(esquina)
+		cant_esquinas = int(archivo_csv.next())
+		for i in range(cant_esquinas):
+			lista = archivo_csv.next()
+			ide = lista[0]
+			x = float(lista[1])
+			y = float(lista[2])
+			latitud = int(lista[3])
+			longitud = int(lista[4])
+			ciudad.agregar_esquina(ide, x, y, latitud, longitud)
+		cant_calles = int(archivo_csv.next())
+		for j in range(cant_calles):
+			lista = archivo_csv.next()
+			idc = lista[0]
+			esq_inicio = lista[1]
+			esq_fin = lista[2]
+			ciudad.agregar_calle(esq_inicio, esq_fin, idc)
+	archivo_c.close()	
 			
 main()

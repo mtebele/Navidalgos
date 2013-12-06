@@ -1,33 +1,31 @@
 import grafo
 import math
+import numpy as np
 
-class Esquina:
-    def __init__(self, ide, x1, y1, lon, lat):
-		self.id = ide
-		self.x = x1
-		self.y = y1
-		self.longitud = lon
-		self.latitud = lat
-		
-	def calcular_distancia(self, esquina2):
-		dist_x = esquina2.x - self.x
-		dist_y = esquina2.y - self.y	
-		return math.hypot(dist_x, dist_y)
-
-	def coordenadas(self)
-		return (self.longitud, self.latitud)
-			
 class Ciudad:
 	def __init__(self):
 		self.mapa = Grafo()
-		self.cant_esquinas = 0
-		self.cant_calles = 0
+		self.coord_angulares = {}
+		self.coord_metros = {}
 
-	def agregar_esquina(self, esquina):
+	def calcular_distancia(self, esquina1, esquina2):
+		coord_metros_1 = self.coord_metros[esquina1]
+		coord_metros_2 = self.coord_metros[esquina2]
+		dist = coord_metros_2 - coord_metros_1
+		return math.hypot(dist[0], dist[1])
+
+	def agregar_esquina(self, esquina, x, y, lat, lon):
 		self.mapa.agregar_vertice(esquina)
-		self.cant_esquinas += 1
+		self.coord_metros[esquina] = np.array([x,y])
+		self.coord_angulares[esquina] = np.array([lat,lon])
 
+<<<<<<< .mine
+	def agregar_calle(self, idc, esquina1, esquina2):
+		dist  =  calcular_distancia(esquina1, esquina2)
+		self.mapa.agregar_arista(esquina1, esquina2, dist, idc)
+=======
 	def agregar_calle(self, esquina1, esquina2):
 		dist = esquina1.calcular_distancia(esquina2)
 		self.mapa.agregar_arista(esquina1, esquina2, dist)
 		self.cant_calles += 1
+>>>>>>> .r10
