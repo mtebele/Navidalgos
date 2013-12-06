@@ -2,7 +2,7 @@ import sys
 
 def validar_instruccion(instruccion):
 	"""Valido si la instruccion tiene formato correcto"""
-	validos = {"listar_fabricas" : 0,
+	validos = { "listar_fabricas" : 0,
                 "valuar_juguetes" : 1,
                 "valuar_juguetes_total" : 0,
                 "camino_optimo" : 1,

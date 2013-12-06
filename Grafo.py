@@ -18,9 +18,9 @@ class Grafo:
 		self.matriz[v1][v2] = 0
 		self.matriz[v2][v1] = 0
 		
-	def borrar_vertice(self,v)
-		for w in self.matriz.keys()
-			if w.has_key(v)
+	def borrar_vertice(self,v):
+		for w in self.matriz.keys():
+			if w.has_key(v):
 				del w[v]
 		del self.matriz[v]
 		
