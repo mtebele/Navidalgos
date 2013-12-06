@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 
 def validar_instruccion(instruccion):
