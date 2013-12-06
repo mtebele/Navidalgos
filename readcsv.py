@@ -3,9 +3,16 @@
 import csv
 from juguete import Juguete
 from ciudad import Ciudad
-from esquina import Esquina
 
 def main():
+	with open('fabricas.csv', 'rb') as archivo_j:
+		archivo_csv = csv.reader(archivo_f)
+		lista_fabricas = []		
+		for idf, ide, hora_entrada, hora_salida in archivo_csv:
+			fab = Fabrica(idf, ide, hora_entrada, hora_salida)
+			lista_fabricas.append(fab)
+	archivo_f.close()
+	
 	with open('juguetes.csv', 'rb') as archivo_j:
 		archivo_csv = csv.reader(archivo_j)
 		lista_juguetes = []		
