@@ -1,4 +1,4 @@
-import Grafo
+import grafo
 import math
 
 class Esquina:
@@ -13,6 +13,9 @@ class Esquina:
 		dist_x = esquina2.x - self.x
 		dist_y = esquina2.y - self.y	
 		return math.hypot(dist_x, dist_y)
+
+	def coordenadas(self)
+		return (self.longitud, self.latitud)
 			
 class Ciudad:
 	def __init__(self):
