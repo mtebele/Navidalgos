@@ -4,3 +4,4 @@ class Juguete:
 		self.idj = idj
 		self.valor = valor
 		self.peso = peso
+
