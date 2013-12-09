@@ -30,7 +30,7 @@ def cargar_juguetes():
 def cargar_mapa():
 	with open('mapa.csv', 'rU') as archivo_c:
 		archivo_csv = csv.reader(archivo_c)
-		mapa = Ciudad()
+		mapa = ciudad.Ciudad()
 		cant_esquinas = int(archivo_csv.next()[0])
 		for i in range(cant_esquinas):
 			lista = archivo_csv.next()
@@ -46,7 +46,7 @@ def cargar_mapa():
 			idc = lista[0]
 			esq_inicio = lista[1]
 			esq_fin = lista[2]
-			city.agregar_calle(idc, esq_inicio, esq_fin)
+			mapa.agregar_calle(idc, esq_inicio, esq_fin)
 	archivo_c.close()
 	return mapa
 
@@ -66,7 +66,7 @@ def main():
 			
 	sis = sistema.Sistema(polo, capacidad, ciudad, lista_juguetes, lista_fabricas)
 			
-	#print('CARGA FINALIZADA')
+	print('CARGA FINALIZADA')
 	
 	while True:
 		linea = sys.stdin.readline()
