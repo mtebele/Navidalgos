@@ -27,22 +27,18 @@ class Sistema:
 			print(lista[i])
 
     def valuar_juguetes(self, idf):
-		f = None
-		for f in self.fabricas:
-			if f.idf == idf:
-				fab = f
-				break
-		if f is None:
-			salida = 'Error: la fabrica con id ' + f.idf + ' no existe'
-			return salida
-		res = {}
-		cantidad_maxima = len(f.juguetes)
-		for cant in cantidad_maxima:
-			resultados[cant] = {}
-		for peso in range (self.capacidad_carrito):
-			res[0][peso] = 0
-		for c in cantidad_maxima:
-			for p in range (self.capacidad_carrito):
+		if idf >= len(self.fabricas):
+			print('Error: la fabrica con id ' + idf + ' no existe')
+			return
+		fabrica = self.fabricas[idf-1]
+		res = []
+		cantidad_maxima = len(fabrica.juguetes)
+		for cant in range(cantidad_maxima):
+			res[cant] = []
+		for peso in range(self.capacidad_carrito):
+			res[0][peso] = 0 #ACA PINCHA
+		for c in range(cantidad_maxima):
+			for p in range(self.capacidad_carrito):
 				p_nuevo = f.juguetes[c].peso
 				v_nuevo = f.juguetes[c].valor
 				if p >= p_nuevo:
@@ -51,7 +47,7 @@ class Sistema:
 					res[c][p] = res[c-1][p]
 		opt = res[cantidad_maxima-1][self.capacidad_carrito-1]
 		salida = 'Total: ' + opt + 'Sonrisas'
-		return salida
+		print(salida)
 		
     def valuar_juguetes_total(self): return
 
