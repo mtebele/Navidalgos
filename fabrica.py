@@ -2,12 +2,12 @@ class Fabrica:
     def __init__(self, idf, ide, hor1, hor2):
 		self.idf = idf
 		self.ide = ide
-		self.hora_entrada = hor1
-		self.hora_salida = hor2
+		self.hora_entrada = int(hor1)
+		self.hora_salida = int(hor2)
 		self.juguetes = []
-	
-	def duracion(self)
+
+    def duracion(self):
 		return hora_entrada - hora_salida
 
-	def agregar_juguete(self, juguete)
+    def agregar_juguete(self, juguete):
 		self.juguetes.append(juguete)
