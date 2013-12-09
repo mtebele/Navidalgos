@@ -5,6 +5,27 @@ import csv
 import juguete
 import ciudad
 import fabrica
+import operator
+
+#PASAR A SISTEMA#
+def listar_fabricas(lista_fabricas):
+	#VER SI MODIFICAR lista_fabricas O DUPLICARLA
+	lista_fabricas.sort(key=operator.attrgetter('hora_salida', 'hora_entrada'))
+	lista = []
+	cant = 0
+	fin_ant = -1
+	for i in range(len(lista_fabricas)):
+		if lista_fabricas[i].hora_entrada >= fin_ant:
+			idf = lista_fabricas[i].idf
+			hora_ent = '{:02d}:{:02d}'.format(*divmod(lista_fabricas[i].hora_entrada, 60))
+			hora_sal = '{:02d}:{:02d}'.format(*divmod(lista_fabricas[i].hora_salida, 60))			
+			lista.append(idf+','+hora_ent+','+hora_sal)
+			fin_ant = lista_fabricas[i].hora_salida
+			cant += 1
+	
+	print('Cantidad: {}').format(cant)
+	for i in range(len(lista)):
+		print(lista[i])
 
 def cargar_fabricas():
 	with open('fabricas.csv', 'rb') as archivo_f:
@@ -49,7 +70,7 @@ def cargar_mapa():
 	archivo_c.close()
 	return city
 
-def validar_instruccion(instruccion):
+def validar_instruccion(instruccion):	
 	"""Valido si la instruccion tiene formato correcto"""
 	validos = { "listar_fabricas" : 0,
                 "valuar_juguetes" : 1,
@@ -65,16 +86,18 @@ def validar_instruccion(instruccion):
 		return False
 
 def main():
-	
 	polo = int(sys.argv[1]);
 	capacidad = int(sys.argv[2]);
+	lista_fabricas = []
 	for i in range(len(sys.argv)-3):
-		if sys.argv[i+3] == 'fabricas.csv':
-			cargar_fabricas()
+		if sys.argv[i+3] == '/home/tebele/Desktop/TP3/pruebas/fabricas.csv': #corregir esta mierda
+			lista_fabricas = cargar_fabricas()
 		elif sys.argv[i+3] == 'juguetes.csv':
 			cargar_juguetes()
 		elif sys.argv[i+3] == 'mapa.csv':
 			cargar_mapa()
+			
+	#print('CARGA FINALIZADA')
 	
 	while True:
 		linea = sys.stdin.readline()
@@ -88,8 +111,17 @@ def main():
 			comando = linea[:pos_espacio]
 			resto_linea = linea[pos_espacio+1:]
 			parametros = resto_linea.split(",")
-		instruccion = (comando,parametros)
-		if validar_instruccion(instruccion):
-			print "Comando valido"
-		else: print "Comando Invalido" 
+		
+		instruccion = (comando, parametros)	
+			
+		#if validar_instruccion(instruccion):
+		#	print "Comando valido"
+		#else: print "Comando Invalido" 
+		#print(instruccion[0])
+		
+		#COMIENZO INSTRUCCIONES#
+		if instruccion[0] == 'listar_fabricas':
+			listar_fabricas(lista_fabricas)
+		
+		
 main()
