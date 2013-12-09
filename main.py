@@ -70,7 +70,7 @@ def main():
 	
 	while True:
 		linea = sys.stdin.readline()
-		if not linea:
+		if linea is None:
 		   break
 		pos_espacio = linea.find(' ')
 		if pos_espacio == -1:
@@ -85,6 +85,8 @@ def main():
 		
 		#COMIENZO INSTRUCCIONES#
 		if instruccion[0] == 'listar_fabricas':
-			sis.listar_fabricas()		
+			sis.listar_fabricas()	
+		if instruccion[0] == 'valuar_juguetes':
+			print sis.valuar_juguetes(instruccion[1])
 		
 main()
