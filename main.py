@@ -54,23 +54,23 @@ def main():
 	polo = int(sys.argv[1]);
 	capacidad = int(sys.argv[2]);
 	lista_fabricas = []
-	mapa = ""
+	mapa = None
 	lista_juguetes = []
 	for i in range(len(sys.argv)-3):
 		if sys.argv[i+3] == '/home/tebele/Desktop/TP3/pruebas/fabricas.csv': #corregir esta mierda
 			lista_fabricas = cargar_fabricas()
-		elif sys.argv[i+3] == 'juguetes.csv':
+		elif sys.argv[i+3] == '/home/tebele/Desktop/TP3/pruebas/juguetes.csv':
 			lista_juguetes = cargar_juguetes()
-		elif sys.argv[i+3] == 'mapa.csv':
+		elif sys.argv[i+3] == '/home/tebele/Desktop/TP3/pruebas/mapa.csv':
 			mapa = cargar_mapa()
 			
 	sis = sistema.Sistema(polo, capacidad, ciudad, lista_juguetes, lista_fabricas)
-			
-	print('CARGA FINALIZADA')
+	
+	#print('CARGA FINALIZADA')
 	
 	while True:
 		linea = sys.stdin.readline()
-		if linea is None:
+		if not linea:
 		   break
 		pos_espacio = linea.find(' ')
 		if pos_espacio == -1:
@@ -87,6 +87,6 @@ def main():
 		if instruccion[0] == 'listar_fabricas':
 			sis.listar_fabricas()	
 		if instruccion[0] == 'valuar_juguetes':
-			print sis.valuar_juguetes(instruccion[1])
+			sis.valuar_juguetes(int(parametros[0].rstrip('\n')))
 		
 main()
