@@ -87,7 +87,6 @@ def main():
 				print('Total: {} Sonrisas').format(valor)
 		if instruccion[0] == 'valuar_juguetes_total':
 			valor = sis.valuar_juguetes_total()
-			print 'sale total'
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
 		
