@@ -7,8 +7,8 @@ import ciudad
 import fabrica
 import sistema
 
-def cargar_fabricas():
-	with open('fabricas.csv', 'rb') as archivo_f:
+def cargar_fabricas(nomarch):
+	with open(nomarch, 'rb') as archivo_f:
 		archivo_csv = csv.reader(archivo_f)
 		lista_fabricas = []		
 		for idf, ide, hora_entrada, hora_salida in archivo_csv:
@@ -17,18 +17,17 @@ def cargar_fabricas():
 	archivo_f.close()
 	return lista_fabricas
 
-def cargar_juguetes():
-	with open('juguetes.csv', 'rb') as archivo_j:
-		archivo_csv = csv.reader(archivo_j)
-		lista_juguetes = []		
+def cargar_juguetes(nomarch, lista_fabricas):
+	with open(nomarch, 'rb') as archivo_j:
+		archivo_csv = csv.reader(archivo_j)	
 		for idf, idj, valor, peso in archivo_csv:
-			jug = juguete.Juguete(idf, idj, int(valor), int(peso))
-			lista_juguetes.append(jug)
+			fab = lista_fabricas[int(idf)]
+			jug = juguete.Juguete(idj, int(valor), int(peso))
+			fab.juguetes.append(jug)
 	archivo_j.close()
-	return lista_juguetes
 
-def cargar_mapa():
-	with open('mapa.csv', 'rU') as archivo_c:
+def cargar_mapa(nomarch):
+	with open(nomarch, 'rU') as archivo_c:
 		archivo_csv = csv.reader(archivo_c)
 		mapa = ciudad.Ciudad()
 		cant_esquinas = int(archivo_csv.next()[0])
@@ -52,21 +51,18 @@ def cargar_mapa():
 
 def main():	
 	polo = int(sys.argv[1]);
+	print polo
 	capacidad = int(sys.argv[2]);
+	print capacidad
 	lista_fabricas = []
 	mapa = None
-	lista_juguetes = []
-	for i in range(len(sys.argv)-3):
-		if sys.argv[i+3] == '/home/tebele/Desktop/TP3/pruebas/fabricas.csv': #corregir esta mierda
-			lista_fabricas = cargar_fabricas()
-		elif sys.argv[i+3] == '/home/tebele/Desktop/TP3/pruebas/juguetes.csv':
-			lista_juguetes = cargar_juguetes()
-		elif sys.argv[i+3] == '/home/tebele/Desktop/TP3/pruebas/mapa.csv':
-			mapa = cargar_mapa()
+	lista_fabricas = cargar_fabricas(sys.argv[3])
+	cargar_juguetes(sys.argv[4], lista_fabricas)
+	mapa = cargar_mapa(sys.argv[5])
 			
-	sis = sistema.Sistema(polo, capacidad, ciudad, lista_juguetes, lista_fabricas)
+	sis = sistema.Sistema(polo, capacidad, ciudad, lista_fabricas)
 	
-	#print('CARGA FINALIZADA')
+	print('CARGA FINALIZADA')
 	
 	while True:
 		linea = sys.stdin.readline()
@@ -87,6 +83,6 @@ def main():
 		if instruccion[0] == 'listar_fabricas':
 			sis.listar_fabricas()	
 		if instruccion[0] == 'valuar_juguetes':
-			sis.valuar_juguetes(int(parametros[0].rstrip('\n')))
+			sis.valuar_juguetes(int(instruccion[1][0].rstrip('\n')))
 		
 main()

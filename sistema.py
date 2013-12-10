@@ -1,11 +1,10 @@
 import operator
 
 class Sistema:
-    def __init__(self, pn, capacidad, mapa, juguetes, fabricas):
+    def __init__(self, pn, capacidad, mapa, fabricas):
 		self.polo_norte = pn
 		self.capacidad_carrito = capacidad
 		self.mapa = mapa
-		self.juguetes = juguetes
 		self.fabricas = fabricas
 	
     def listar_fabricas(self):
@@ -29,24 +28,26 @@ class Sistema:
     def valuar_juguetes(self, idf):
 		if idf >= len(self.fabricas):
 			print('Error: la fabrica con id ' + idf + ' no existe')
+			print len(self.fabricas)
 			return
-		fabrica = self.fabricas[idf-1]
+		fabrica = self.fabricas[idf]
+		print fabrica.idf
 		res = []
 		cantidad_maxima = len(fabrica.juguetes)
 		for cant in range(cantidad_maxima):
-			res[cant] = []
+			res.append({})
 		for peso in range(self.capacidad_carrito):
-			res[0][peso] = 0 #ACA PINCHA
-		for c in range(cantidad_maxima):
+			res[0][peso] = 0
+		for c in range(1, cantidad_maxima):
 			for p in range(self.capacidad_carrito):
-				p_nuevo = f.juguetes[c].peso
-				v_nuevo = f.juguetes[c].valor
+				p_nuevo = fabrica.juguetes[c].peso
+				v_nuevo = fabrica.juguetes[c].valor
 				if p >= p_nuevo:
 					res[c][p] = max(res[c-1][p], res[c-1][p-p_nuevo] + v_nuevo)
 				else:
 					res[c][p] = res[c-1][p]
 		opt = res[cantidad_maxima-1][self.capacidad_carrito-1]
-		salida = 'Total: ' + opt + 'Sonrisas'
+		salida = opt
 		print(salida)
 		
     def valuar_juguetes_total(self): return
