@@ -50,8 +50,8 @@ def cargar_mapa(nomarch):
 	return mapa
 
 def main():	
-	polo = int(sys.argv[1]);
-	capacidad = int(sys.argv[2]);
+	capacidad = int(sys.argv[1]);
+	polo = int(sys.argv[2]);
 	lista_fabricas = cargar_fabricas(sys.argv[3])
 	cargar_juguetes(sys.argv[4], lista_fabricas)
 	mapa = cargar_mapa(sys.argv[5])
