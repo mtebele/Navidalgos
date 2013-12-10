@@ -17,7 +17,7 @@ class Sistema:
 				idf = lista_fabricas[i].idf
 				hora_ent = '{:02d}:{:02d}'.format(*divmod(lista_fabricas[i].hora_entrada, 60))
 				hora_sal = '{:02d}:{:02d}'.format(*divmod(lista_fabricas[i].hora_salida, 60))			
-				lista.append(idf+','+hora_ent+','+hora_sal)
+				lista.append('{},{},{}'.format(idf, hora_ent, hora_sal))
 				fin_ant = lista_fabricas[i].hora_salida
 				cant += 1
 		
@@ -33,7 +33,7 @@ class Sistema:
 		res = []
 		cantidad_maxima = len(fabrica.juguetes)
 		
-		for cant in range(cantidad_maxima):
+		for cant in range(cantidad_maxima+1):
 			res.append({})
 		for peso in range(self.capacidad_carrito+1):
 			res[0][peso] = 0
@@ -46,10 +46,14 @@ class Sistema:
 				else:
 					res[c][p] = res[c-1][p]
 		
-		opt = res[cantidad_maxima-1][self.capacidad_carrito]
-		print('Total: {} Sonrisas').format(opt)
-		
-    def valuar_juguetes_total(self): return
+		valor = res[cantidad_maxima-1][self.capacidad_carrito]
+		return valor
+    
+    def valuar_juguetes_total(self):
+		total_sonrisas = 0
+		for f in self.fabricas:
+			total_sonrisas += self.valuar_juguetes(f.idf)
+		return total_sonrisas
 
     def camino_optimo(self, idf): return
 
