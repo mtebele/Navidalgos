@@ -79,6 +79,13 @@ def main():
 		if instruccion[0] == 'listar_fabricas':
 			sis.listar_fabricas()	
 		if instruccion[0] == 'valuar_juguetes':
-			sis.valuar_juguetes(int(instruccion[1][0].rstrip('\n')))
+			valor = sis.valuar_juguetes(int(instruccion[1][0].rstrip('\n')))
+			if (valor is not None):
+				print('Total: {} Sonrisas').format(valor)
+		if instruccion[0] == 'valuar_juguetes_total':
+			valor = sis.valuar_juguetes_total()
+			print 'sale total'
+			if (valor is not None):
+				print('Total: {} Sonrisas').format(valor)
 		
 main()
