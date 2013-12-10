@@ -1,10 +1,11 @@
 import operator
+import grafo
 
 class Sistema:
-    def __init__(self, pn, capacidad, mapa, fabricas):
+    def __init__(self, pn, capacidad, ciudad, fabricas):
 		self.polo_norte = pn
 		self.capacidad_carrito = capacidad
-		self.mapa = mapa
+		self.ciudad = ciudad
 		self.fabricas = fabricas
 		self.fabricas_visitar = None
 	
@@ -61,8 +62,18 @@ class Sistema:
 			total_sonrisas += self.valuar_juguetes(f.idf)
 		return total_sonrisas
 
-    def camino_optimo(self, idf): return
-
+    def camino_optimo(self, idf):
+		mapa = self.ciudad.obtener_mapa()
+		fin = self.polo_norte
+		distancias, hijos = grafo.dijkstra(mapa, idf, fin)
+		camino = []
+		while True:
+			camino.append(fin)
+			if idf == fin: break
+			fin = hijos[fin]
+		camino.reverse()
+		return camino #aca obtenemos los nombres de las ciudades nada mas, habria que darle formato.
+				
     def listar_juguetes(self, idf): return
 
     def graficar_rutas(self, idf): return
