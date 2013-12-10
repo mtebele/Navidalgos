@@ -26,10 +26,10 @@ def cargar_juguetes(nomarch, lista_fabricas):
 			fab.juguetes.append(jug)
 	archivo_j.close()
 
-def cargar_mapa(nomarch):
+def cargar_ciudad(nomarch):
 	with open(nomarch, 'rU') as archivo_c:
 		archivo_csv = csv.reader(archivo_c)
-		mapa = Ciudad()
+		ciudad = Ciudad()
 		cant_esquinas = int(archivo_csv.next()[0])
 		for i in range(cant_esquinas):
 			lista = archivo_csv.next()
@@ -38,25 +38,25 @@ def cargar_mapa(nomarch):
 			y = float(lista[2])
 			latitud = float(lista[3])
 			longitud = float(lista[4])
-			mapa.agregar_esquina(ide, x, y, latitud, longitud)
+			ciudad.agregar_esquina(ide, x, y, latitud, longitud)
 		cant_calles = int(archivo_csv.next()[0])
 		for j in range(cant_calles):
 			lista = archivo_csv.next()
 			idc = lista[0]
 			esq_inicio = lista[1]
 			esq_fin = lista[2]
-			mapa.agregar_calle(idc, esq_inicio, esq_fin)
+			ciudad.agregar_calle(idc, esq_inicio, esq_fin)
 	archivo_c.close()
-	return mapa
+	return ciudad
 
 def main():	
 	capacidad = int(sys.argv[1]);
 	polo = int(sys.argv[2]);
 	lista_fabricas = cargar_fabricas(sys.argv[3])
 	cargar_juguetes(sys.argv[4], lista_fabricas)
-	mapa = cargar_mapa(sys.argv[5])
+	ciudad = cargar_ciudad(sys.argv[5])
 			
-	sis = Sistema(polo, capacidad, mapa, lista_fabricas)
+	sis = Sistema(polo, capacidad, ciudad, lista_fabricas)
 	
 	#print('CARGA FINALIZADA')
 	
