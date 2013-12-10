@@ -32,15 +32,17 @@ class Sistema:
 			print('Error: la fabrica con id ' + idf + ' no existe')
 			return
 		fabrica = self.fabricas[idf]
+		row = []
 		res = []
 		cantidad_maxima = len(fabrica.juguetes)
 		
-		for cant in range(cantidad_maxima+1):
-			res.append({})
-		for peso in range(self.capacidad_carrito+1):
-			res[0][peso] = 0
-		for c in range(1, cantidad_maxima):
-			for p in range(self.capacidad_carrito+1):
+		for i in range(self.capacidad_carrito+1):
+			row.append(0)
+		for i in range(cantidad_maxima):
+			res.append(row[:])
+			
+		for c in range(0,cantidad_maxima):
+			for p in range(0,self.capacidad_carrito+1):
 				p_nuevo = fabrica.juguetes[c].peso
 				v_nuevo = fabrica.juguetes[c].valor
 				if p >= p_nuevo:
