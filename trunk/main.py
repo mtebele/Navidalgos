@@ -77,7 +77,10 @@ def main():
 		
 		#COMIENZO INSTRUCCIONES#
 		if instruccion[0] == 'listar_fabricas':
-			sis.listar_fabricas()	
+			lista = sis.listar_fabricas()	
+			print('Cantidad: {}').format(len(lista))
+			for i in range(len(lista)):
+				print(lista[i])
 		if instruccion[0] == 'valuar_juguetes':
 			valor = sis.valuar_juguetes(int(instruccion[1][0].rstrip('\n')))
 			if (valor is not None):

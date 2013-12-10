@@ -6,10 +6,12 @@ class Sistema:
 		self.capacidad_carrito = capacidad
 		self.mapa = mapa
 		self.fabricas = fabricas
+		self.fabricas_visitar = None
 	
     def listar_fabricas(self):
 		lista_fabricas = sorted(self.fabricas, key=operator.attrgetter('hora_salida', 'hora_entrada'))
 		lista = []
+		lista_visitar = []
 		cant = 0
 		fin_ant = -1
 		for i in range(len(lista_fabricas)):
@@ -18,13 +20,13 @@ class Sistema:
 				hora_ent = '{:02d}:{:02d}'.format(*divmod(lista_fabricas[i].hora_entrada, 60))
 				hora_sal = '{:02d}:{:02d}'.format(*divmod(lista_fabricas[i].hora_salida, 60))			
 				lista.append('{},{},{}'.format(idf, hora_ent, hora_sal))
+				lista_visitar.append(lista_fabricas[i])
 				fin_ant = lista_fabricas[i].hora_salida
 				cant += 1
 		
-		print('Cantidad: {}').format(cant)
-		for i in range(len(lista)):
-			print(lista[i])
-
+		self.fabricas_visitar = lista_visitar
+		return lista
+		
     def valuar_juguetes(self, idf):
 		if idf >= len(self.fabricas):
 			print('Error: la fabrica con id ' + idf + ' no existe')
@@ -50,8 +52,10 @@ class Sistema:
 		return valor
     
     def valuar_juguetes_total(self):
+		if self.fabricas_visitar is None:
+			self.listar_fabricas()
 		total_sonrisas = 0
-		for f in self.fabricas:
+		for f in self.fabricas_visitar:
 			total_sonrisas += self.valuar_juguetes(f.idf)
 		return total_sonrisas
 
