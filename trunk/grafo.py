@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-import heapq
+import sys
+from heapq import heappush, heappop
 
 class Grafo:
 	def __init__(self):
@@ -29,19 +30,17 @@ class Grafo:
 		del self.matriz[v]
 	
 	def hay_arista(self,v1,v2):
-		if v2 in self.matriz[v1]:
-			return True
-		else:
-			return False
+		return v2 in self.matriz[v1]
 
 	def adyacentes(self,v):
 		if v in self.matriz.keys():
 			return self.matriz[v]
-		else: return {}
+		else:
+			return {}
 
 	def dijkstra(self, inicio, fin):
 		"""Obtiene el camino mas corto entre los vertices inicio y fin"""
-		infinito = 99999999 # Buscar un mejor criterio para infinito
+		infinito = sys.maxint
 		# Inicializacion de estructuras auxiliares:
 		#  distancias: diccionario vertice -> etiqueta
 		#  disponibles: conjunto de vertices con etiquetas temporales
@@ -50,16 +49,16 @@ class Grafo:
 		distancias[inicio] = 0
 		disponibles = []
 		hijos = {}
-		heapq.heappush(disponibles, (inicio, distancias[inicio]))
+		heappush(disponibles, (inicio, distancias[inicio]))
 		# Ciclo principal
 		while len(disponibles) != 0:
-			next = heapq.heappop(disponibles)
+			next = heappop(disponibles)
 			u = next[0] #obtengo el vertice de la tupla (vertice,distancia)
 			for v in self.adyacentes(u):
 				if distancias[v] > distancias[u] + self.obtener_arista_peso(v,u):
 					distancias[v] = distancias[u] + self.obtener_arista_peso(v,u)
 					hijos[v] = u
-					heapq.heappush(disponibles, (v, distancias[v]))
+					heappush(disponibles, (v, distancias[v]))
 		return(distancias, hijos)
 
 
