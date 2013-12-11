@@ -58,7 +58,7 @@ def main():
 			
 	sis = Sistema(polo, capacidad, ciudad, lista_fabricas)
 	
-	#print('CARGA FINALIZADA')
+	print('CARGA FINALIZADA')
 	
 	while True:
 		linea = sys.stdin.readline()
@@ -89,5 +89,9 @@ def main():
 			valor = sis.valuar_juguetes_total()
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
+		if instruccion[0] == 'camino_optimo':
+			camino = sis.camino_optimo(int(instruccion[1][0].rstrip('\n')))
+			for i in range(len(camino)):
+				print(camino[i])
 		
 main()

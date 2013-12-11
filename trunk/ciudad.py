@@ -8,7 +8,7 @@ class Ciudad:
 		self.coord_angulares = {}
 		self.coord_metros = {}
 
-	def obtener_mapa(self)
+	def obtener_mapa(self):
 		return self.mapa
 
 	def calcular_distancia(self, esquina1, esquina2):
