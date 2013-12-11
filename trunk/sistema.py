@@ -9,7 +9,7 @@ class Sistema:
 		self.fabricas = fabricas
 		self.fabricas_visitar = None
 	
-    def listar_fabricas(self):
+    def listar_fabricas(self):																											
 		lista_fabricas = sorted(self.fabricas, key=operator.attrgetter('hora_salida', 'hora_entrada'))
 		lista = []
 		lista_visitar = []
@@ -66,6 +66,7 @@ class Sistema:
 		mapa = self.ciudad.obtener_mapa()
 		fin = self.polo_norte
 		distancias, hijos = Grafo.dijkstra(mapa, idf, fin)
+		print hijos
 		camino = []
 		while idf != fin:
 			camino.append(fin)
