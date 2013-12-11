@@ -35,33 +35,32 @@ class Grafo:
 			return False
 
 	def adyacentes(self,v):
-		return self.matriz[v]
+		if v in self.matriz.keys():
+			return self.matriz[v]
+		else: return {}
 
 	def dijkstra(self, inicio, fin):
-    """
-    Algoritmo de Dijkstra para el grafo G.
-	Obtiene el camino más corto entre los vértices inicio y fin
-    """
-    infinito = 99999999999999 # Buscar un mejor criterio para infinito
-    # Inicializacion de estructuras auxiliares:
-    #  distancias: diccionario vertice -> etiqueta
-    #  disponibles: conjunto de vertices con etiquetas temporales
-    #  hijos: diccionario vertice->predecesor para camino minimo)
-    distancias = dict([(u, infinito) for u in self.matriz.keys()])
-    distancias[inicio] = 0
-    disponibles = []
-    hijos = {}
-	heapq.heappush(disponibles, (inicio, distancias[inicio]))
-    # Ciclo principal
-    while next in disponibles:
-        next = heapq.heappop(disponibles)
-		u = next[0] #obtengo el vertice de la tupla (vertice,distancia)
-        for v in self.adyacentes(u):
-            if distancias[v] > distancias[u] + self.obtener_arista_peso(v,u):
-                distancias[v] = distancias[u] + self.obtener_arista_peso(v,u)
-                hijos[v] = u
-				heapq.heappush(disponibles, (v, distancias[v]))
-	return(distancias, hijos)
+		"""Obtiene el camino mas corto entre los vertices inicio y fin"""
+		infinito = 99999999 # Buscar un mejor criterio para infinito
+		# Inicializacion de estructuras auxiliares:
+		#  distancias: diccionario vertice -> etiqueta
+		#  disponibles: conjunto de vertices con etiquetas temporales
+		#  hijos: diccionario vertice->predecesor para camino minimo)
+		distancias = dict([(u, infinito) for u in self.matriz.keys()])
+		distancias[inicio] = 0
+		disponibles = []
+		hijos = {}
+		heapq.heappush(disponibles, (inicio, distancias[inicio]))
+		# Ciclo principal
+		while len(disponibles) != 0:
+			next = heapq.heappop(disponibles)
+			u = next[0] #obtengo el vertice de la tupla (vertice,distancia)
+			for v in self.adyacentes(u):
+				if distancias[v] > distancias[u] + self.obtener_arista_peso(v,u):
+					distancias[v] = distancias[u] + self.obtener_arista_peso(v,u)
+					hijos[v] = u
+					heapq.heappush(disponibles, (v, distancias[v]))
+		return(distancias, hijos)
 
 
 

@@ -1,5 +1,5 @@
 import operator
-import grafo
+from grafo import Grafo
 
 class Sistema:
     def __init__(self, pn, capacidad, ciudad, fabricas):
@@ -65,9 +65,9 @@ class Sistema:
     def camino_optimo(self, idf):
 		mapa = self.ciudad.obtener_mapa()
 		fin = self.polo_norte
-		distancias, hijos = grafo.dijkstra(mapa, idf, fin)
+		distancias, hijos = Grafo.dijkstra(mapa, idf, fin)
 		camino = []
-		while True:
+		while idf != fin:
 			camino.append(fin)
 			if idf == fin: break
 			fin = hijos[fin]
