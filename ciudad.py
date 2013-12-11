@@ -1,10 +1,11 @@
 import grafo
 import math
 import numpy as np
+from grafo import Grafo
 
 class Ciudad:
 	def __init__(self):
-		self.mapa = grafo.Grafo()
+		self.mapa = Grafo()
 		self.coord_angulares = {}
 		self.coord_metros = {}
 
