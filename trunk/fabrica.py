@@ -7,7 +7,19 @@ class Fabrica:
 		self.juguetes = []
 
     def duracion(self):
+		"""
+		Determina la duracion de estadia en la fabrica
+		"""
 		return hora_entrada - hora_salida
 
     def agregar_juguete(self, juguete):
+		"""
+		Agrega un juguete a la fabrica
+		"""
 		self.juguetes.append(juguete)
+	
+    def obtener_esquina(self):
+		"""
+		Devuelve la esquina en la que esta ubicada la fabrica
+		"""
+		return str(self.ide)
