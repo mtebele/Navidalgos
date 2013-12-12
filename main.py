@@ -8,6 +8,9 @@ from fabrica import Fabrica
 from sistema import Sistema
 
 def cargar_fabricas(nomarch):
+	"""
+	Carga las fabricas con la informacion del archivo <nomarch>
+	"""
 	with open(nomarch, 'rb') as archivo_f:
 		archivo_csv = csv.reader(archivo_f)
 		lista_fabricas = []		
@@ -18,6 +21,10 @@ def cargar_fabricas(nomarch):
 	return lista_fabricas
 
 def cargar_juguetes(nomarch, lista_fabricas):
+	"""
+	Carga los juguetes con la informacion del archivo <nomarch> en las fabricas
+	pertenecientes a <lista_fabricas>
+	"""
 	with open(nomarch, 'rb') as archivo_j:
 		archivo_csv = csv.reader(archivo_j)	
 		for idf, idj, valor, peso in archivo_csv:
@@ -27,6 +34,9 @@ def cargar_juguetes(nomarch, lista_fabricas):
 	archivo_j.close()
 
 def cargar_ciudad(nomarch):
+	"""
+	Carga la ciudad con la informacion del archivo <nomarch>
+	"""
 	with open(nomarch, 'rU') as archivo_c:
 		archivo_csv = csv.reader(archivo_c)
 		ciudad = Ciudad()
@@ -49,7 +59,13 @@ def cargar_ciudad(nomarch):
 	archivo_c.close()
 	return ciudad
 
-def main():	
+def main():
+	"""
+	Bloque principal. Se carga en el sistema la capacidad del carrito,
+	la ubicacion del polo norte, las fabricas con sus juguetes y la ciudad.
+	Una vez realizado esto, se procede a leer los comandos que el usuario
+	ingrese, ejecutando la operacion correspondiente en caso de ser necesario.
+	"""
 	capacidad = int(sys.argv[1]);
 	polo = int(sys.argv[2]);
 	lista_fabricas = cargar_fabricas(sys.argv[3])
@@ -58,7 +74,7 @@ def main():
 			
 	sis = Sistema(polo, capacidad, ciudad, lista_fabricas)
 	
-	#print('CARGA FINALIZADA')
+	print('CARGA FINALIZADA')
 	
 	while True:
 		linea = sys.stdin.readline()
@@ -90,17 +106,19 @@ def main():
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
 		elif instruccion[0] == 'camino_optimo':
-			camino, distancia = sis.camino_optimo(instruccion[1][0].rstrip('\n'))
-			print('Distancia: {} Metros').format(distancia)			
-			for i in range(len(camino)):
-				print camino
+			coordenadas, distancia = sis.camino_optimo(instruccion[1][0].rstrip('\n'))
+			print('Distancia: {} Metros').format(int(distancia))			
+			for i in range(len(coordenadas)):
+				print('{},{}').format(coordenadas[i][0],coordenadas[i][1])
+		elif instruccion[0] == 'graficar_rutas':
+			sis.graficar_rutas(instruccion[1][0].rstrip('\n'))
+			print 'OK'
 		elif instruccion[0] == 'listar_juguetes':
 			valor, lista = sis.listar_juguetes(int(instruccion[1][0].rstrip('\n')))
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
 				for j in range(len(lista)):
 					print(lista[j].idj)
-		else:
-			print 'Comando invalido'
+		else: print 'Comando Invalido. Intente nuevamente:'	
 
 main()
