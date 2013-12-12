@@ -58,7 +58,7 @@ def main():
 			
 	sis = Sistema(polo, capacidad, ciudad, lista_fabricas)
 	
-	print('CARGA FINALIZADA')
+	#print('CARGA FINALIZADA')
 	
 	while True:
 		linea = sys.stdin.readline()
@@ -81,18 +81,26 @@ def main():
 			print('Cantidad: {}').format(len(lista))
 			for i in range(len(lista)):
 				print(lista[i])
-		if instruccion[0] == 'valuar_juguetes':
+		elif instruccion[0] == 'valuar_juguetes':
 			valor = sis.valuar_juguetes(int(instruccion[1][0].rstrip('\n')))
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
-		if instruccion[0] == 'valuar_juguetes_total':
+		elif instruccion[0] == 'valuar_juguetes_total':
 			valor = sis.valuar_juguetes_total()
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
-		if instruccion[0] == 'camino_optimo':
+		elif instruccion[0] == 'camino_optimo':
 			camino, distancia = sis.camino_optimo(instruccion[1][0].rstrip('\n'))
 			print('Distancia: {} Metros').format(distancia)			
 			for i in range(len(camino)):
 				print camino
+		elif instruccion[0] == 'listar_juguetes':
+			valor, lista = sis.listar_juguetes(int(instruccion[1][0].rstrip('\n')))
+			if (valor is not None):
+				print('Total: {} Sonrisas').format(valor)
+				for j in range(len(lista)):
+					print(lista[j].idj)
+		else:
+			print 'Comando invalido'
 
 main()
