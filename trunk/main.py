@@ -94,5 +94,5 @@ def main():
 			print('Distancia: {} Metros').format(distancia)			
 			for i in range(len(camino)):
 				print camino
-		
+
 main()
