@@ -90,8 +90,9 @@ def main():
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
 		if instruccion[0] == 'camino_optimo':
-			camino = sis.camino_optimo(int(instruccion[1][0].rstrip('\n')))
+			camino, distancia = sis.camino_optimo(instruccion[1][0].rstrip('\n'))
+			print('Distancia: {} Metros').format(distancia)			
 			for i in range(len(camino)):
-				print(camino[i])
+				print camino
 		
 main()
