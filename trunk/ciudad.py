@@ -37,3 +37,7 @@ class Ciudad:
 		"""
 		dist = self.calcular_distancia(esquina1, esquina2)
 		self.mapa.agregar_arista(esquina1, esquina2, dist, idc)
+
+	def camino_optimo(self, esquina_inicio, esquina_fin):
+		camino, distancia = self.mapa.camino_minimo(esquina_inicio, esquina_fin)
+		return camino, distancia
