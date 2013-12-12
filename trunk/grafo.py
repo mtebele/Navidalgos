@@ -38,8 +38,12 @@ class Grafo:
 		else:
 			return {}
 
-	def dijkstra(self, inicio, fin):
-		"""Obtiene el camino mas corto entre los vertices inicio y fin"""
+	def imprimir(self):
+		for v in self.matriz.keys():
+			print('{} : {}'.format(v, self.matriz[v]))
+
+	def dijkstra(self, inicio):
+		"""Obtiene el camino mas corto hacia todos los vertices del grafo, partiendo desde el vertice 			<inicio>."""
 		infinito = sys.maxint
 		# Inicializacion de estructuras auxiliares:
 		#  distancias: diccionario vertice -> etiqueta
@@ -59,7 +63,14 @@ class Grafo:
 					distancias[v] = distancias[u] + self.obtener_arista_peso(v,u)
 					hijos[v] = u
 					heappush(disponibles, (v, distancias[v]))
-		return(distancias, hijos)
+		return (distancias, hijos)
 
-
+	def camino_minimo(self, inicio, fin):
+		distancias, hijos = self.dijkstra(inicio)
+		camino = [fin]
+		actual = fin
+		while actual != inicio:
+			camino.append(hijos[actual])
+			actual = hijos[actual]
+		return camino, distancias[fin]
 
