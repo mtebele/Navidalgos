@@ -29,7 +29,7 @@ class Sistema:
 		self.fabricas_visitar = lista_visitar
 		return lista
 		
-    def valuar_juguetes(self, idf):
+    def valuar_juguetes(self, idf, listar_juguetes = False):
 		if idf >= len(self.fabricas):
 			print('Error: la fabrica con id ' + idf + ' no existe')
 			return
@@ -43,8 +43,8 @@ class Sistema:
 		for i in range(cantidad_maxima):
 			res.append(row[:])
 			
-		for c in range(0,cantidad_maxima):
-			for p in range(0,self.capacidad_carrito+1):
+		for c in range(cantidad_maxima):
+			for p in range(self.capacidad_carrito+1):
 				p_nuevo = fabrica.juguetes[c].peso
 				v_nuevo = fabrica.juguetes[c].valor
 				if p >= p_nuevo:
@@ -53,6 +53,9 @@ class Sistema:
 					res[c][p] = res[c-1][p]
 		
 		valor = res[cantidad_maxima-1][self.capacidad_carrito]
+		
+		if listar_juguetes == True:
+			return valor,res
 		return valor
     
     def valuar_juguetes_total(self):
@@ -67,8 +70,23 @@ class Sistema:
 		fin = self.polo_norte
 		camino, distancia = self.ciudad.camino_optimo(idf, fin)
 		return camino, distancia #aca obtenemos los nombres de las ciudades nada mas, habria que darle formato.
-				
-    def listar_juguetes(self, idf): return
+		
+    def listar_juguetes(self, idf):
+		valor,res = self.valuar_juguetes(idf, True)
+		fabrica = self.fabricas[idf]
+		juguetes = fabrica.juguetes
+		
+		lista = []
+		w = self.capacidad_carrito
+		for j in range(len(juguetes)-1, 0, -1):
+			agregado = res[j][w] != res[j-1][w]
+			if agregado:
+				jug = juguetes[j]
+				lista.append(jug)
+				w -= jug.peso
+
+		lista.reverse()
+		return valor,lista
 
     def graficar_rutas(self, idf): return
-
+    
