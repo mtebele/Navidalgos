@@ -84,6 +84,9 @@ class Sistema:
 		Devuelve la distancia optima desde la fabrica <idf> hasta el polo norte
 		y las coordenadas angulares del recorrido efectuado.
 		"""
+		if int(idf) < 0 or int(idf) >= len(self.fabricas):
+			print('Error: la fabrica con id {} no existe').format(idf)
+			return None,None
 		fin = self.polo_norte
 		fabrica = self.fabricas[int(idf)]
 		inicio = fabrica.obtener_esquina()
@@ -98,6 +101,9 @@ class Sistema:
 		Devuelve la lista de juguetes y el valor de sonrisas correspondiente 
 		a la combinacion optima a retirar de la fabrica <idf>
 		"""
+		if idf < 0 or idf >= len(self.fabricas):
+			print('Error: la fabrica con id {} no existe').format(idf)
+			return None,None
 		valor,res = self.valuar_juguetes(idf, True)
 		fabrica = self.fabricas[idf]
 		juguetes = fabrica.juguetes
@@ -119,6 +125,9 @@ class Sistema:
 		return valor,lista
 
     def graficar_rutas(self, idf):
+		if int(idf) < 0 or int(idf) >= len(self.fabricas):
+			print('Error: la fabrica con id {} no existe').format(idf)
+			return False
 		coordenadas, distancia = self.camino_optimo(idf)
 		f = open(idf+'.kml', 'w')
 		f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
@@ -167,3 +176,4 @@ class Sistema:
 		f.write("</Document>\n")
 		f.write("</kml>\n")	
 		f.close()
+		return True

@@ -96,26 +96,27 @@ def main():
 		elif comando == 'valuar_juguetes' and parametros != []:
 			idf = int(parametros[0].rstrip('\n'))
 			valor = sis.valuar_juguetes(idf)
-			if (valor is not None):
+			if valor is not None:
 				print('Total: {} Sonrisas').format(valor)
 		elif comando == 'valuar_juguetes_total':
 			valor = sis.valuar_juguetes_total()
-			if (valor is not None):
+			if valor is not None:
 				print('Total: {} Sonrisas').format(valor)
 		elif comando == 'camino_optimo' and parametros != []:
 			idf = parametros[0].rstrip('\n')
 			coordenadas, distancia = sis.camino_optimo(idf)
-			print('Distancia: {} Metros').format(int(distancia))			
-			for i in range(len(coordenadas)):
-				print('{},{}').format(coordenadas[i][0],coordenadas[i][1])
+			if coordenadas is not None and distancia is not None:
+				print('Distancia: {} Metros').format(int(distancia))			
+				for i in range(len(coordenadas)):
+					print('{},{}').format(coordenadas[i][0],coordenadas[i][1])
 		elif comando == 'graficar_rutas' and parametros != []:
 			idf = parametros[0].rstrip('\n')
-			sis.graficar_rutas(idf)
-			print 'OK'
+			if sis.graficar_rutas(idf):
+				print 'OK'
 		elif comando == 'listar_juguetes' and parametros != []:
 			idf = int(parametros[0].rstrip('\n'))
-			valor, lista = sis.listar_juguetes(idf)
-			if (valor is not None):
+			valor,lista = sis.listar_juguetes(idf)
+			if valor is not None:
 				print('Total: {} Sonrisas').format(valor)
 				for j in range(len(lista)):
 					print(lista[j].idj)
