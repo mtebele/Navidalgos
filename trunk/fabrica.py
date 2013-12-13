@@ -1,7 +1,7 @@
 class Fabrica:
     def __init__(self, idf, ide, hor1, hor2):
-		self.idf = int(idf)
-		self.ide = int(ide)
+		self.idf = idf
+		self.ide = ide
 		self.hora_entrada = int(hor1)
 		self.hora_salida = int(hor2)
 		self.juguetes = []
