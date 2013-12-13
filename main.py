@@ -86,36 +86,34 @@ def main():
 			comando = linea[:pos_espacio]
 			resto_linea = linea[pos_espacio+1:]
 			parametros = resto_linea.split(",")
-		
-		instruccion = (comando, parametros)
-		
+				
 		# Comienzo de instrucciones
-		if instruccion[0] == 'listar_fabricas':
+		if comando == 'listar_fabricas':
 			lista = sis.listar_fabricas()	
 			print('Cantidad: {}').format(len(lista))
 			for i in range(len(lista)):
 				print(lista[i])
-		elif instruccion[0] == 'valuar_juguetes':
-			idf = int(instruccion[1][0].rstrip('\n'))
+		elif comando == 'valuar_juguetes' and parametros != []:
+			idf = int(parametros[0].rstrip('\n'))
 			valor = sis.valuar_juguetes(idf)
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
-		elif instruccion[0] == 'valuar_juguetes_total':
+		elif comando == 'valuar_juguetes_total':
 			valor = sis.valuar_juguetes_total()
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
-		elif instruccion[0] == 'camino_optimo':
-			idf = instruccion[1][0].rstrip('\n')
+		elif comando == 'camino_optimo' and parametros != []:
+			idf = parametros[0].rstrip('\n')
 			coordenadas, distancia = sis.camino_optimo(idf)
 			print('Distancia: {} Metros').format(int(distancia))			
 			for i in range(len(coordenadas)):
 				print('{},{}').format(coordenadas[i][0],coordenadas[i][1])
-		elif instruccion[0] == 'graficar_rutas':
-			idf = instruccion[1][0].rstrip('\n')
+		elif comando == 'graficar_rutas' and parametros != []:
+			idf = parametros[0].rstrip('\n')
 			sis.graficar_rutas(idf)
 			print 'OK'
-		elif instruccion[0] == 'listar_juguetes':
-			idf = int(instruccion[1][0].rstrip('\n'))
+		elif comando == 'listar_juguetes' and parametros != []:
+			idf = int(parametros[0].rstrip('\n'))
 			valor, lista = sis.listar_juguetes(idf)
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
