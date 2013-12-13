@@ -38,13 +38,14 @@ class Sistema:
 		Devuelve el valor de sonrisas correspondiente a la combinacion de 
 		juguetes optima a retirar de la fabrica <idf>
 		"""
-		if idf >= len(self.fabricas):
-			print('Error: la fabrica con id ' + idf + ' no existe')
+		if idf < 0 or idf >= len(self.fabricas):
+			print('Error: la fabrica con id {} no existe').format(idf)
 			return
 		fabrica = self.fabricas[idf]
 		row = []
 		res = []
 		cantidad_maxima = len(fabrica.juguetes)
+		fabrica.juguetes.sort(key=operator.attrgetter('idj'))
 		
 		for i in range(self.capacidad_carrito+1):
 			row.append(0)
@@ -75,7 +76,7 @@ class Sistema:
 			self.listar_fabricas()
 		total_sonrisas = 0
 		for f in self.fabricas_visitar:
-			total_sonrisas += self.valuar_juguetes(f.idf)
+			total_sonrisas += self.valuar_juguetes(int(f.idf))
 		return total_sonrisas
 
     def camino_optimo(self, idf):
@@ -93,17 +94,27 @@ class Sistema:
 		return coordenadas, distancia
 
     def listar_juguetes(self, idf):
+		"""
+		Devuelve la lista de juguetes y el valor de sonrisas correspondiente 
+		a la combinacion optima a retirar de la fabrica <idf>
+		"""
 		valor,res = self.valuar_juguetes(idf, True)
 		fabrica = self.fabricas[idf]
 		juguetes = fabrica.juguetes
-		lista = []
+		lista = []		
 		w = self.capacidad_carrito
-		for j in range(len(juguetes)-1, 0, -1):
+		j = len(juguetes)-1
+		
+		while j >= 0 and w >= 0:
 			agregado = res[j][w] != res[j-1][w]
 			if agregado:
 				jug = juguetes[j]
-				lista.append(jug)
 				w -= jug.peso
+				if w < 0:
+					break
+				lista.append(jug)	
+			j-=1
+			
 		lista.reverse()
 		return valor,lista
 
@@ -156,4 +167,3 @@ class Sistema:
 		f.write("</Document>\n")
 		f.write("</kml>\n")	
 		f.close()
-

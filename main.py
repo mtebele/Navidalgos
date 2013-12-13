@@ -74,8 +74,6 @@ def main():
 			
 	sis = Sistema(polo, capacidad, ciudad, lista_fabricas)
 	
-	print('CARGA FINALIZADA')
-	
 	while True:
 		linea = sys.stdin.readline()
 		if not linea:
@@ -91,14 +89,15 @@ def main():
 		
 		instruccion = (comando, parametros)
 		
-		#COMIENZO INSTRUCCIONES#
+		# Comienzo de instrucciones
 		if instruccion[0] == 'listar_fabricas':
 			lista = sis.listar_fabricas()	
 			print('Cantidad: {}').format(len(lista))
 			for i in range(len(lista)):
 				print(lista[i])
 		elif instruccion[0] == 'valuar_juguetes':
-			valor = sis.valuar_juguetes(int(instruccion[1][0].rstrip('\n')))
+			idf = int(instruccion[1][0].rstrip('\n'))
+			valor = sis.valuar_juguetes(idf)
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
 		elif instruccion[0] == 'valuar_juguetes_total':
@@ -106,19 +105,23 @@ def main():
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
 		elif instruccion[0] == 'camino_optimo':
-			coordenadas, distancia = sis.camino_optimo(instruccion[1][0].rstrip('\n'))
+			idf = instruccion[1][0].rstrip('\n')
+			coordenadas, distancia = sis.camino_optimo(idf)
 			print('Distancia: {} Metros').format(int(distancia))			
 			for i in range(len(coordenadas)):
 				print('{},{}').format(coordenadas[i][0],coordenadas[i][1])
 		elif instruccion[0] == 'graficar_rutas':
-			sis.graficar_rutas(instruccion[1][0].rstrip('\n'))
+			idf = instruccion[1][0].rstrip('\n')
+			sis.graficar_rutas(idf)
 			print 'OK'
 		elif instruccion[0] == 'listar_juguetes':
-			valor, lista = sis.listar_juguetes(int(instruccion[1][0].rstrip('\n')))
+			idf = int(instruccion[1][0].rstrip('\n'))
+			valor, lista = sis.listar_juguetes(idf)
 			if (valor is not None):
 				print('Total: {} Sonrisas').format(valor)
 				for j in range(len(lista)):
 					print(lista[j].idj)
-		else: print 'Comando Invalido. Intente nuevamente:'	
-
+		else:
+			print 'Comando Invalido. Intente nuevamente.'	
+		
 main()

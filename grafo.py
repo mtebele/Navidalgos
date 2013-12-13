@@ -59,7 +59,7 @@ class Grafo:
 		if self.pertenece(v):
 			return self.matriz[v]
 		else:
-			print'NO HAY ADYACENTES'
+			print'Error: no hay adyacentes'
 
 	def pertenece(self,v):
 		"""
