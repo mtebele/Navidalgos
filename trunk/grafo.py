@@ -17,7 +17,7 @@ class Grafo:
 		Agrega una arista con nombre <nombre>, peso <peso>, que conecta <v1> y <v2>
 		"""
 		self.matriz[v1][v2] = (peso,nombre)
-		self.matriz[v2][v1] = (peso,nombre) #grafo no dirigido!!
+		self.matriz[v2][v1] = (peso,nombre)
 		
 	def obtener_arista_peso(self,v1,v2):
 		"""
@@ -76,7 +76,7 @@ class Grafo:
 
 	def dijkstra(self, inicio):
 		"""
-		Obtiene el camino mas corto hacia todos los vertices del grafo, partiendo desde el vertice 			<inicio>.
+		Obtiene el camino mas corto hacia todos los vertices del grafo, partiendo desde el vertice <inicio>.
 		Devuelve una diccionario vertice:peso y otro con los predecesores de
 		cada uno de los vertices"""
 		infinito = sys.maxint
